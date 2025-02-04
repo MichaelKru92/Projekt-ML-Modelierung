@@ -57,4 +57,4 @@ jobs:
         
     - name: Test with pytest
       run: |
-        pytest Masterprojekt_BIDS_Allergien.py
+        pytest Masterprojekt_BIDS_Allergien.ipynb
