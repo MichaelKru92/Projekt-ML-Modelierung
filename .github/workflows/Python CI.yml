@@ -57,4 +57,4 @@ jobs:
         
     - name: Test with pytest
       run: |
-        pytest path/to/Masterprojekt_BIDS_Allergien.py
+        pytest /Masterprojekt_BIDS_Allergien.py
