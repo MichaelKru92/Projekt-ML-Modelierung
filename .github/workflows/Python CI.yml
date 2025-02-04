@@ -27,7 +27,7 @@ jobs:
     - name: Install dependencies (Linux)
       run: |
         python -m pip install --upgrade pip
-        python -m pip install flake8 pytest pycodestyle pyflakes exceptiongroup nbconvert
+        python -m pip install flake8 pytest pycodestyle pyflakes exceptiongroup nbconvert nbval ipython
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       shell: bash
       if: runner.os == 'Linux'
@@ -35,7 +35,7 @@ jobs:
     - name: Install dependencies (Windows)
       run: |
         python -m pip install --upgrade pip
-        python -m pip install flake8 pytest pycodestyle pyflakes exceptiongroup nbconvert
+        python -m pip install flake8 pytest pycodestyle pyflakes exceptiongroup nbconvert nbval ipython
         if (Test-Path requirements.txt) {pip install -r requirements.txt}
       shell: pwsh
       if: runner.os == 'Windows'
@@ -43,7 +43,7 @@ jobs:
     - name: Install dependencies (macOS)
       run: |
         python -m pip install --upgrade pip
-        python -m pip install flake8 pytest pycodestyle pyflakes exceptiongroup nbconvert
+        python -m pip install flake8 pytest pycodestyle pyflakes exceptiongroup nbconvert nbval ipython
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       shell: bash
       if: runner.os == 'macOS'
@@ -58,4 +58,4 @@ jobs:
     - name: Convert notebook to script and test with pytest
       run: |
         jupyter nbconvert --to script Masterprojekt_BIDS_Allergien.ipynb
-        pytest Masterprojekt_BIDS_Allergien.py
+        pytest --nbval-lax Masterprojekt_BIDS_Allergien.ipynb
