@@ -52,10 +52,21 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+    - name: Set ROHDATEN_LOCAL_PATH
+      run: |
+        if [ -d "Rohdaten(CSV)" ]; then
+          echo "Rohdaten(CSV) directory found."
+          echo "ROHDATEN_LOCAL_PATH=Rohdaten(CSV)" >> $GITHUB_ENV
+        else
+          echo "Rohdaten(CSV) directory not found. Using repository root."
+          echo "ROHDATEN_LOCAL_PATH=." >> $GITHUB_ENV
+        fi
+      shell: bash
         
     - name: Convert notebooks to scripts and test with pytest
       env:
-        ROHDATEN_LOCAL_PATH: ""
+        ROHDATEN_LOCAL_PATH: ${{ env.ROHDATEN_LOCAL_PATH }}
       run: |
         for notebook in *.ipynb; do
           jupyter nbconvert --to script "$notebook"
