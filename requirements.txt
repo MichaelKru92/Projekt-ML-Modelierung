@@ -1,6 +1,7 @@
 attrs==25.1.0
 beautifulsoup4==4.13.3
 bleach==6.2.0
+certifi==2024.8.30
 cycler==0.12.1
 defusedxml==0.7.1
 fastjsonschema==2.21.1
