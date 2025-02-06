@@ -59,3 +59,18 @@ jobs:
       run: |
         jupyter nbconvert --to script Masterprojekt_BIDS_Allergien.ipynb
         pytest --nbval-lax Masterprojekt_BIDS_Allergien.ipynb
+
+        jupyter nbconvert --to script Schritt_1_Allgemeines_Setup.ipynb
+        pytest --nbval-lax Schritt_1_Allgemeines_Setup.ipynb
+
+        jupyter nbconvert --to script Schritt_2_Donwload_Rohdaten.ipynb
+        pytest --nbval-lax Schritt_2_Donwload_Rohdaten.ipynb
+
+        jupyter nbconvert --to script Schritt_3_Download_Rohdaten.ipynb
+        pytest --nbval-lax Schritt_3_Download_Rohdaten.ipynb
+
+        jupyter nbconvert --to script Schritt_4_Datenexploration.ipynb
+        pytest --nbval-lax Schritt_4_Datenexploration.ipynb
+
+        jupyter nbconvert --to script Schritt_5_Datentransformation.ipynb
+        pytest --nbval-lax Schritt_5_Datentransformation.ipynb
