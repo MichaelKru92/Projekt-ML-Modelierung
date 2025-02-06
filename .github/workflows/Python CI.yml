@@ -1,5 +1,3 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-
 name: Python package
 
 on:
@@ -55,22 +53,10 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
         
-    - name: Convert notebook to script and test with pytest
+    - name: Convert notebooks to scripts and test with pytest
       run: |
-        jupyter nbconvert --to script Masterprojekt_BIDS_Allergien.ipynb
-        pytest --nbval-lax Masterprojekt_BIDS_Allergien.ipynb
-
-        jupyter nbconvert --to script Schritt_1_Allgemeines_Setup.ipynb
-        pytest --nbval-lax Schritt_1_Allgemeines_Setup.ipynb
-
-        jupyter nbconvert --to script Schritt_2_Donwload_Rohdaten.ipynb
-        pytest --nbval-lax Schritt_2_Donwload_Rohdaten.ipynb
-
-        jupyter nbconvert --to script Schritt_3_Download_Rohdaten.ipynb
-        pytest --nbval-lax Schritt_3_Download_Rohdaten.ipynb
-
-        jupyter nbconvert --to script Schritt_4_Datenexploration.ipynb
-        pytest --nbval-lax Schritt_4_Datenexploration.ipynb
-
-        jupyter nbconvert --to script Schritt_5_Datentransformation.ipynb
-        pytest --nbval-lax Schritt_5_Datentransformation.ipynb
+        for notebook in *.ipynb; do
+          jupyter nbconvert --to script "$notebook"
+          pytest --nbval-lax "$notebook"
+        done
+      shell: bash
