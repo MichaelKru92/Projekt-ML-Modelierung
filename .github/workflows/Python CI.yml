@@ -54,6 +54,8 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
         
     - name: Convert notebooks to scripts and test with pytest
+      env:
+        ROHDATEN_LOCAL_PATH: /path/to/your/data
       run: |
         for notebook in *.ipynb; do
           jupyter nbconvert --to script "$notebook"
