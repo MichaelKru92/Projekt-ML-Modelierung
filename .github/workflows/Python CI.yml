@@ -55,7 +55,7 @@ jobs:
         
     - name: Convert notebooks to scripts and test with pytest
       env:
-        ROHDATEN_LOCAL_PATH: Rohdaten\(CSV\)/
+        ROHDATEN_LOCAL_PATH: Rohdaten(CSV)/
       run: |
         for notebook in *.ipynb; do
           jupyter nbconvert --to script "$notebook"
