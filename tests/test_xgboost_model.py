@@ -193,6 +193,11 @@ class TestXGBoostModel(unittest.TestCase):
         self.assertLess(rmse_optimized, 15000, "RMSE is too high")
         self.assertGreater(r2_optimized, 0.5, "R² Score is too low")
 
+        # Print success messages if assertions pass
+        print("MAE is within acceptable range.")
+        print("RMSE is within acceptable range.")
+        print("R² Score is within acceptable range.")
+
 
 if __name__ == '__main__':
     unittest.main()
