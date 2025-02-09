@@ -33,7 +33,7 @@ def list_tables(db_path):
 
 
 # Pfad zur Datenbankdatei
-db_path = "/Users/tician/Downloads/source_allergy.db"
+db_path = "Datenbank/source_allergy.db"
 
 tables = list_tables(db_path)
 print("Tabellen in der Datenbank:", tables)
@@ -61,7 +61,7 @@ print("Tabellen in der Datenbank:", tables)
 
 
 # Verbindung zur SQLite-Datenbank herstellen
-db_path = "/Users/tician/Downloads/source_allergy.db"
+db_path = "Datenbank/source_allergy.db"
 conn = sqlite3.connect(db_path)
 
 # Patienten- und Beobachtungsdaten abrufen
@@ -116,7 +116,7 @@ print(f"R-squared Score: {r2}")
 
 
 # Verbindung zur SQLite-Datenbank herstellen
-db_path = "/Users/tician/Downloads/source_allergy.db"
+db_path = "Datenbank/source_allergy.db"
 conn = sqlite3.connect(db_path)
 
 # Patienten- und Beobachtungsdaten abrufen
@@ -184,7 +184,7 @@ print(f"R-squared Score: {r2}")
 
 
 # Verbindung zur SQLite-Datenbank herstellen
-db_path = "/Users/tician/Downloads/source_allergy.db"
+db_path = "Datenbank/source_allergy.db"
 conn = sqlite3.connect(db_path)
 
 # Patienten- und Beobachtungsdaten abrufen
@@ -254,7 +254,7 @@ for name, model in models.items():
 
 
 # Verbindung zur SQLite-Datenbank herstellen
-db_path = "/Users/tician/Downloads/source_allergy.db"
+db_path = "Datenbank/source_allergy.db"
 conn = sqlite3.connect(db_path)
 
 # Patienten- und Beobachtungsdaten abrufen
@@ -402,7 +402,7 @@ plt.show()
 
 # Connect to the database
 # Ensure correct file path is used
-db_path = "/Users/tician/Downloads/source_allergy.db"
+db_path = "Datenbank/source_allergy.db"
 conn = sqlite3.connect(db_path)
 
 # Load relevant data
@@ -529,7 +529,7 @@ print(performance_df)
 
 # Connect to the database
 # Ensure correct file path is used
-db_path = "/Users/tician/Downloads/source_allergy.db"
+db_path = "Datenbank/source_allergy.db"
 conn = sqlite3.connect(db_path)
 
 # Load relevant data
@@ -643,7 +643,7 @@ print(performance_df)
 
 
 # Verbindung zur Datenbank herstellen
-db_path = "/Users/tician/Downloads/source_allergy.db"
+db_path = "Datenbank/source_allergy.db"
 conn = sqlite3.connect(db_path)
 
 # Daten abrufen

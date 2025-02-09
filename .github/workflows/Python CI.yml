@@ -36,7 +36,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest pycodestyle pyflakes exceptiongroup nbconvert nbval ipython
-        if (Test-Path requirements.txt) {pip install -r requirements.txt}
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       shell: pwsh
       if: runner.os == 'Windows'
       
@@ -55,18 +55,8 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
         
-    - name: Set ROHDATEN_LOCAL_PATH
+  
+    - name: python
       run: |
-        if [ -d "Rohdaten(CSV)" ]; then
-          echo "Rohdaten(CSV) directory found."
-          echo "ROHDATEN_LOCAL_PATH=Rohdaten(CSV)" >> $GITHUB_ENV
-        else
-          echo "Rohdaten(CSV) directory not found. Using repository root."
-          echo "ROHDATEN_LOCAL_PATH=." >> $GITHUB_ENV
-        fi
-      shell: bash
-        
-    - name: Test with pytest
-      run: |
-        pytest "Modelentwicklung und Modelvalidierung auf Fakedatenbank.py"
+       run-python "Modelentwicklung und Modelvalidierung auf Fakedatenbank.py"
       shell: bash
