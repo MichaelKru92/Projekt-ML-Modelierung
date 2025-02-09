@@ -1,4 +1,4 @@
-name: Model Test
+name: Validate Model
 
 on:
   push:
