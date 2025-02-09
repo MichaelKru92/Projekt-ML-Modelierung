@@ -28,4 +28,3 @@ jobs:
         with:
           service-id: srv-cukel0d6l47c73cao6cg
           api-key: rnd_xWgCqz4tyLnC6P17BUX8ICtoNklI
-          wait-for-success: true
