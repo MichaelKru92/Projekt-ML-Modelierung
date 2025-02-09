@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template_string
 import joblib
 import pandas as pd
 import os
@@ -9,10 +9,14 @@ app = Flask(__name__)
 model_path = 'optimized_xgb_model.pkl'
 optimized_xgb = joblib.load(model_path)
 
+# Read the index.html content from the root directory
+with open('index.html', 'r') as file:
+    index_html = file.read()
+
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template_string(index_html)
 
 
 @app.route('/predict', methods=['POST'])
@@ -40,7 +44,7 @@ def predict():
     # Make predictions
     prediction = optimized_xgb.predict(input_data)[0]
 
-    return render_template('index.html', prediction=prediction)
+    return render_template_string(index_html, prediction=prediction)
 
 
 if __name__ == '__main__':
