@@ -4,46 +4,45 @@ name: Run Python on Model
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ]  # Trigger the workflow on push events to the main branch
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main" ]  # Trigger the workflow on pull request events targeting the main branch
 
 jobs:
   build:
     strategy:
-      fail-fast: false
+      fail-fast: false  # Continue running all jobs even if one fails
       matrix:
-        os: [ubuntu-latest]
-        python-version: ["3.12", "3.13"]
+        os: [ubuntu-latest]  # Specify the operating system to use
+        python-version: ["3.12", "3.13"]  # Specify the Python versions to use
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}  # Use the operating system specified in the matrix
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v4  # Check out the repository to the runner
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v3  # Set up the Python environment
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: ${{ matrix.python-version }}  # Use the Python version specified in the matrix
 
     - name: Install dependencies (Linux)
       run: |
-        sudo apt-get install libgomp1
-        python -m pip install --upgrade pip
-        python -m pip install flake8 pyflakes exceptiongroup 
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        sudo apt-get install libgomp1  # Install the libgomp1 library
+        python -m pip install --upgrade pip  # Upgrade pip to the latest version
+        python -m pip install flake8 pyflakes exceptiongroup  # Install linting tools and exception handling library
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi  # Install dependencies listed in requirements.txt if it exists
       shell: bash
-      if: runner.os == 'Linux'
-      
-      
+      if: runner.os == 'Linux'  # Run this step only if the runner is Linux
+
     - name: Lint with flake8
       run: |
-        # stop the build if there are Python syntax errors or undefined names
+        # Stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-        
+
     - name: Run Python script
       run: |
-        python "Modelentwicklung und Modelvalidierung auf Fakedatenbank.py"
+        python "Modelentwicklung und Modelvalidierung auf Fakedatenbank.py"  # Run the specified Python script
       shell: bash
