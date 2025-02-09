@@ -11,19 +11,22 @@ class TestXGBoostModel(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # Create a fake database
+        # Create a fake database using Faker
         cls.fake = Faker()
-        np.random.seed(42)
+        np.random.seed(42)  # Set seed for reproducibility
+        # Create an in-memory SQLite database
         cls.conn = sqlite3.connect(":memory:")
+        # Populate the database with fake data
         cls.create_fake_database(cls.conn)
 
     @classmethod
     def tearDownClass(cls):
-        cls.conn.close()
+        cls.conn.close()  # Close the database connection after all tests are done
 
     @staticmethod
     def create_fake_database(conn):
         cursor = conn.cursor()
+        # Create tables in the database
         cursor.execute("""CREATE TABLE patients (
                             Id INTEGER PRIMARY KEY AUTOINCREMENT, 
                             HEALTHCARE_EXPENSES REAL, 
@@ -59,12 +62,14 @@ class TestXGBoostModel(unittest.TestCase):
         medications_data = []
         encounters_data = []
 
+        # Define lists of possible values for categorical variables
         chronic_conditions_list = ["None", "Diabetes", "COPD",
                                    "Cancer", "Hypertension", "Depression", "Multiple Conditions"]
         employment_status_list = ["Unemployed",
                                   "Employed", "Self-Employed", "Retired"]
         gender_list = ["Male", "Female", "Other"]
 
+        # Generate fake data for each patient
         for i in range(1, num_patients + 1):
             birthdate = Faker().date_of_birth(
                 minimum_age=20, maximum_age=90).strftime("%Y-%m-%d")
@@ -94,12 +99,14 @@ class TestXGBoostModel(unittest.TestCase):
             healthcare_expenses = np.clip(base_expenses * (1 - healthcare_coverage) * (
                 1 + smoker * 0.2) * (1 - income / 200000), 5000, 200000)
 
+            # Append generated data to the respective lists
             patients_data.append((healthcare_expenses, healthcare_coverage, birthdate, income,
                                  chronic_condition, hospitalizations, smoker, gender, employment_status, emergency_visits))
             observations_data.append((i, bmi, '39156-5'))
             medications_data.append((i, medication_cost))
             encounters_data.append((i, encounter_cost))
 
+        # Insert generated data into the database
         cursor.executemany("INSERT INTO patients (HEALTHCARE_EXPENSES, HEALTHCARE_COVERAGE, BIRTHDATE, INCOME, CHRONIC_CONDITIONS, HOSPITALIZATIONS, SMOKER, GENDER, EMPLOYMENT_STATUS, EMERGENCY_VISITS) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", patients_data)
         cursor.executemany(
             "INSERT INTO observations (PATIENT, VALUE, CODE) VALUES (?, ?, ?)", observations_data)
@@ -180,9 +187,9 @@ class TestXGBoostModel(unittest.TestCase):
         self.assertGreater(r2_optimized, 0.5, "R² Score is too low")
 
         # Print success messages if assertions pass
-        print(f"Mean Basolute Error: {mae_optimized:.2f}")
-        print(f"Mean sqaured Error: {mse_optimized:.2f}")
-        print(f"Roor Mean Squared Error: {rmse_optimized:.2f}")
+        print(f"Mean Absolute Error: {mae_optimized:.2f}")
+        print(f"Mean Squared Error: {mse_optimized:.2f}")
+        print(f"Root Mean Squared Error: {rmse_optimized:.2f}")
         print(f"R² Score: {r2_optimized:.4f}")
 
 
