@@ -814,9 +814,6 @@ plt.show()
 # In[5]:
 
 
-get_ipython().system('pip install faker')  # noqa: F821
-
-
 # In[13]:
 
 
