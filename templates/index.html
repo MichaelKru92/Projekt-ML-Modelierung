@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Prediction</title>
+</head>
+
+<body>
+    <h1>Test the XGBoost Model</h1>
+    <form action="/predict" method="post">
+        <label for="bmi">BMI:</label>
+        <input type="number" step="0.01" id="bmi" name="bmi" placeholder="e.g., 22.5" required><br><br>
+
+        <label for="healthcare_coverage">Healthcare Coverage:</label>
+        <input type="number" step="0.01" id="healthcare_coverage" name="healthcare_coverage"
+            placeholder="e.g., 0.75 (fraction covered)" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" placeholder="e.g., 45" required><br><br>
+
+        <label for="total_med_cost">Total Medical Cost:</label>
+        <input type="number" step="0.01" id="total_med_cost" name="total_med_cost" placeholder="e.g., 5000.00"
+            required><br><br>
+
+        <label for="total_enc_cost">Total Encounter Cost:</label>
+        <input type="number" step="0.01" id="total_enc_cost" name="total_enc_cost" placeholder="e.g., 2000.00"
+            required><br><br>
+
+        <label for="income">Income:</label>
+        <input type="number" step="0.01" id="income" name="income" placeholder="e.g., 50000.00" required><br><br>
+
+        <label for="hospitalizations">Hospitalizations:</label>
+        <input type="number" id="hospitalizations" name="hospitalizations" placeholder="e.g., 2" required><br><br>
+
+        <label for="smoker">Smoker (0 or 1):</label>
+        <input type="number" id="smoker" name="smoker" placeholder="0 for No, 1 for Yes" required><br><br>
+
+        <label for="gender">Gender (0, 1, or 2):</label>
+        <input type="number" id="gender" name="gender" placeholder="0 for Male, 1 for Female, 2 for Other"
+            required><br><br>
+
+        <label for="employment_status">Employment Status (0, 1, 2, or 3):</label>
+        <input type="number" id="employment_status" name="employment_status"
+            placeholder="0 for Unemployed, 1 for Employed, 2 for Self-Employed, 3 for Retired" required><br><br>
+
+        <label for="emergency_visits">Emergency Visits:</label>
+        <input type="number" id="emergency_visits" name="emergency_visits" placeholder="e.g., 1" required><br><br>
+
+        <label for="chronic_conditions">Chronic Conditions (0 to 6):</label>
+        <input type="number" id="chronic_conditions" name="chronic_conditions"
+            placeholder="0 for None, 1 for Diabetes, 2 for COPD, 3 for Cancer, 4 for Hypertension, 5 for Depression, 6 for Multiple Conditions"
+            required><br><br>
+
+        <input type="submit" value="Predict">
+    </form>
+    {% if prediction %}
+    <h2>Predicted Healthcare Expenses: {{ prediction }}</h2>
+    {% endif %}
+</body>
+
+</html>
