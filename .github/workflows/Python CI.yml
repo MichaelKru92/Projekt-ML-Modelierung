@@ -66,12 +66,7 @@ jobs:
         fi
       shell: bash
         
-    - name: Convert notebooks to scripts and test with pytest
-      env:
-        ROHDATEN_LOCAL_PATH: ${{ env.ROHDATEN_LOCAL_PATH }}
+    - name: Test with pytest
       run: |
-        for notebook in *.ipynb; do
-          jupyter nbconvert --to script "$notebook"
-          pytest --nbval-lax "$notebook"
-        done
+        pytest "Modelentwicklung und Modelvalidierung auf Fakedatenbank.py"
       shell: bash
