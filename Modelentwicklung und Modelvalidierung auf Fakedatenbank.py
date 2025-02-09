@@ -17,6 +17,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 import pandas as pd
 import sqlite3
+import joblib
 
 
 def list_tables(db_path):
@@ -1024,6 +1025,11 @@ best_params = {
 
 optimized_xgb = XGBRegressor(**best_params, random_state=42)
 optimized_xgb.fit(X_train, y_train)
+
+# Save the model
+model_path = 'optimized_xgb_model.pkl'
+joblib.dump(optimized_xgb, model_path)
+print(f"Model saved to {model_path}")
 
 # Vorhersagen mit optimiertem Modell
 y_pred_optimized = optimized_xgb.predict(X_test)
