@@ -2,9 +2,8 @@ import unittest
 import sqlite3
 import pandas as pd
 import numpy as np
-from xgboost import XGBRegressor
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+import joblib
 from faker import Faker
 
 
@@ -162,31 +161,18 @@ class TestXGBoostModel(unittest.TestCase):
         X = merged_df[features]
         y = merged_df["HEALTHCARE_EXPENSES"]
 
-        # Split data into training and test sets
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=0.2, random_state=42)
+        # Load the saved model
+        model_path = 'optimized_xgb_model.pkl'
+        optimized_xgb = joblib.load(model_path)
 
-        # Define best parameters for XGBoost
-        best_params = {
-            'colsample_bytree': 1.0,
-            'learning_rate': 0.2,
-            'max_depth': 3,
-            'n_estimators': 300,
-            'subsample': 1.0
-        }
-
-        # Train the optimized XGBoost model
-        optimized_xgb = XGBRegressor(**best_params, random_state=42)
-        optimized_xgb.fit(X_train, y_train)
-
-        # Make predictions with the optimized model
-        y_pred_optimized = optimized_xgb.predict(X_test)
+        # Make predictions with the loaded model
+        y_pred_optimized = optimized_xgb.predict(X)
 
         # Evaluate the model
-        mae_optimized = mean_absolute_error(y_test, y_pred_optimized)
-        mse_optimized = mean_squared_error(y_test, y_pred_optimized)
+        mae_optimized = mean_absolute_error(y, y_pred_optimized)
+        mse_optimized = mean_squared_error(y, y_pred_optimized)
         rmse_optimized = np.sqrt(mse_optimized)
-        r2_optimized = r2_score(y_test, y_pred_optimized)
+        r2_optimized = r2_score(y, y_pred_optimized)
 
         # Assert that the model performance is within acceptable limits
         self.assertLess(mae_optimized, 10000, "MAE is too high")
@@ -194,9 +180,10 @@ class TestXGBoostModel(unittest.TestCase):
         self.assertGreater(r2_optimized, 0.5, "R² Score is too low")
 
         # Print success messages if assertions pass
-        print("MAE is within acceptable range.")
-        print("RMSE is within acceptable range.")
-        print("R² Score is within acceptable range.")
+        print(f"Mean Basolute Error: {mae_optimized:.2f}")
+        print(f"Mean sqaured Error: {mse_optimized:.2f}")
+        print(f"Roor Mean Squared Error: {rmse_optimized:.2f}")
+        print(f"R² Score: {r2_optimized:.4f}")
 
 
 if __name__ == '__main__':
