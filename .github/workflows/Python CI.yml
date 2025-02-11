@@ -1,54 +1,45 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-
 name: Run Python on Model
 
 on:
   push:
-    branches: [ "main" ]  # Trigger the workflow on push events to the main branch
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]  # Trigger the workflow on pull request events targeting the main branch
+    branches: [ "main" ]
 
 jobs:
   build:
     strategy:
-      fail-fast: false  # Continue running all jobs even if one fails
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest]  # Specify the operating system to use
-        python-version: ["3.12", "3.13"]  # Specify the Python versions to use
+        os: [ubuntu-latest]
+        python-version: ["3.12", "3.13"]
 
-    runs-on: ${{ matrix.os }}  # Use the operating system specified in the matrix
+    runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v4  # Check out the repository to the runner
+    - uses: actions/checkout@v4
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3  # Set up the Python environment
+      uses: actions/setup-python@v3
       with:
-        python-version: ${{ matrix.python-version }}  # Use the Python version specified in the matrix
+        python-version: ${{ matrix.python-version }}
 
     - name: Install dependencies (Linux)
       run: |
-        sudo apt-get install libgomp1  # Install the libgomp1 library
-        python -m pip install --upgrade pip  # Upgrade pip to the latest version
-        python -m pip install flake8 pyflakes exceptiongroup  # Install linting tools and exception handling library
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi  # Install dependencies listed in requirements.txt if it exists
+        sudo apt-get install libgomp1
+        python -m pip install --upgrade pip
+        python -m pip install flake8 pyflakes exceptiongroup
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       shell: bash
-      if: runner.os == 'Linux'  # Run this step only if the runner is Linux
+      if: runner.os == 'Linux'
 
     - name: Lint with flake8
       run: |
-        # Stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Run Python script
       run: |
-        python "Modelentwicklung und Modelvalidierung auf Fakedatenbank.py"  # Run the specified Python script
-      shell: bash
-
-    - name: Save results to root directory
-      run: |
-        mv ultra_realistic_fake_healthcare.db $GITHUB_WORKSPACE/ultra_realistic_fake_healthcare.db  # Move the generated fakedatabase to the root directory, overwriting any existing file
-        mv optimized_xgb_model.pkl $GITHUB_WORKSPACE/optimized_xgb_model.pkl  # Move the generated pickle file to the root directory, overwriting any existing file
+        python "Modelentwicklung und Modelvalidierung auf Fakedatenbank.py"
       shell: bash
