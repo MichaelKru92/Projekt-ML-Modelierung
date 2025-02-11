@@ -1,4 +1,4 @@
-![example workflow](https://github.com/github/docs/actions/workflows/Pages.yml/badge.svg)
+[![Pages Status](https://github.com/MichaelKru92/Projekt-ML-Modelierung/actions/workflows/Pages.yml/badge.svg)](https://github.com/MichaelKru92/Projekt-ML-Modelierung/actions/workflows/Pages.yml)
 
 ## PF-Cost: Patient Feature-based Cost Prediction
 
