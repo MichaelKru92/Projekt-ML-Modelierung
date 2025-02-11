@@ -49,6 +49,6 @@ jobs:
 
     - name: Save results to root directory
       run: |
-        cp ./ultra_realistic_fake_healthcare.db ./ultra_realistic_fake_healthcare.db  # Copy the generated fakedatabase to the root directory, overwriting any existing file
-        cp ./optimized_xgb_model.pkl ./optimized_xgb_model.pkl  # Copy the generated pickle file to the root directory, overwriting any existing file
+        cp ultra_realistic_fake_healthcare.db $GITHUB_WORKSPACE/ultra_realistic_fake_healthcare.db  # Copy the generated fakedatabase to the root directory, overwriting any existing file
+        cp optimized_xgb_model.pkl $GITHUB_WORKSPACE/optimized_xgb_model.pkl  # Copy the generated pickle file to the root directory, overwriting any existing file
       shell: bash
