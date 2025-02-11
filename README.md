@@ -1,3 +1,5 @@
+![example workflow](https://github.com/github/docs/actions/workflows/Pages.yml/badge.svg)
+
 ## PF-Cost: Patient Feature-based Cost Prediction
 
 
