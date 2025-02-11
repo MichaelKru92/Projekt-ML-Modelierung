@@ -2,7 +2,7 @@ name: Deploy to Render
 
 on:
   workflow_run:
-    workflows: ["Validate Model", "Run Python on Model"]
+    workflows: ["Validate Model"]
     types:
       - completed
 
